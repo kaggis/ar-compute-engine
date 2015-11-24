@@ -1,7 +1,7 @@
 Name: ar-compute
 Summary: A/R Comp Engine core scripts
 Version: 1.6.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: ASL 2.0
 Buildroot: %{_tmppath}/%{name}-buildroot
 Group:     EGI/SA4
@@ -11,20 +11,19 @@ Requires: python-argparse
 Requires: python-pymongo
 Requires: hive
 Requires: hbase
-Requires: hcatalog
 Requires: pig
 Requires: pig-udf-datafu
-Requires: java-1.6.0-openjdk
+Requires: java-1.7.0-openjdk
 
 %description
 Installs the core A/R Compute Engine
 
 %prep
-%setup 
+%setup
 cd status-computation/java
 mvn package
 
-%install 
+%install
 %{__rm} -rf %{buildroot}
 install --directory %{buildroot}/usr/libexec/ar-compute
 install --directory %{buildroot}/usr/libexec/ar-compute/pig
@@ -65,6 +64,8 @@ mvn clean
 %attr(0644,root,root) /etc/ar-compute/*.json
 
 %changelog
+* Mon Nov 24 2015 Konstantinos Kagkelidis <kaggis@gmail.com> - 1.6.5-3%{?dist}
+- ARGO-255 Change Spec file requirements to be compatible with CDH5 client environment
 * Mon Nov 23 2015 Konstantinos Kagkelidis <kaggis@gmail.com> - 1.6.5-2%{?dist}
 - ARGO-238 Change UDF output schema to be compatible with CDH5
 * Thu Oct 29 2015 Konstantinos Kagkelidis <kaggis@gmail.com> - 1.6.5-1%{?dist}
@@ -92,7 +93,7 @@ Add extra junit dependencies
 - Removed one threshold check
 - Fix issue with non Json parsable datetime object
 * Wed Jun 16 2015 Paschalis Korosoglou <pkoro@grid.auth.gr> - 1.6.2-4%{?dist}
-- Fix in parameter passed onto pig ar script 
+- Fix in parameter passed onto pig ar script
 * Wed Jun 4 2015 Konstantinos Kagkelidis <kaggis@gmail.com> - 1.6.2-3%{?dist}
 - ARGO-129 Bugfix: Fix reference to connector path
 * Wed Jun 3 2015 Konstantinos Kagkelidis <kaggis@gmail.com> - 1.6.2-2%{?dist}
@@ -118,7 +119,7 @@ Add extra junit dependencies
 * Thu Mar 26 2015 Paschalis Korosoglou <pkoro@grid.auth.gr> - 1.6.1-1%{?dist}
 - Renameing of standalone folder to bin
 * Mon Mar 02 2015 Konstantinos Kagkelidis <kaggis@gmail.com> - 1.6.0-6%{?dist}
-- Fix typo in ar-compute-engine.conf 
+- Fix typo in ar-compute-engine.conf
 * Fri Feb 27 2015 Konstantinos Kagkelidis <kaggis@gmail.com> - 1.6.0-5%{?dist}
 - Fix config filenames. Add More Verbosity
 - Correct Cloudmon job name in global config
